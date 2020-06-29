@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>My Web Tech MidSem Q6</title>
+    <!-- CSS File -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <style>
+        h3 {
+            margin: 10px auto;
+            text-align: center;
+        }
+
+        form {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #credit-card {
+            padding: 10px;
+            border: 1px solid lightgray;
+        }
+
+        .error {
+            color: red;
+            border: 1px solid red !important;
+        }
+
+        .success {
+            color: green;
+            border: 1px solid green !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <h3>Credit Card Number Validator</h3>
+        <form>
+            <div>
+                <label for="card">Enter your Credit Card Number</label><br>
+                <input type="text" maxlength="19" id="credit-card" onkeyup="validateData()" onblur="validateData()"
+                    placeholder="XXXX-XXXX-XXXX-XXXX" />
+                <br>
+                <span id="error-msg"></span>
+            </div>
+        </form>
+    </div>
+    <script>
+        const validateData = () => {
+            let element = document.getElementById("credit-card");
+
+            // Remove dash (-) chars from input
+            let value = element.value.split('-').join('')
+
+            var array = value.split('');
+            var filteredArray = array.filter((item, index) => {
+                return array.indexOf(item) == index;
+            });
+
+            let msg = null;
+
+            // Validation 2: Should not contain alphabets
+            if (/[a-z]/i.test(value)) {
+                msg = "Alphabets not allowed"
+            }
+
+            // Validation 1: Must contain 16 digits
+            if (value.length !== 16) {
+                msg = msg || "Enter 16 digit card number"
+            }
+
+            // Validation 3: Must have atleast 2 different digits
+            if (filteredArray.length < 2) {
+                msg = msg || "All digits can't be same"
+            }
+
+            // Validation 4: Sum of digits > 16
+            if (array.reduce((a, b) => parseInt(a) + parseInt(b), 0) <= 16) {
+                msg = msg || "Sum of digits should be greater than 16"
+            }
+
+            // Validation 0: Should not contain Non-Numberic Chars
+            if (/\W/g.test(value)) {
+                msg = "Invalid Character Found"
+            }
+
+            let [add, remove] = msg ? ["error", "success"] : ["success", "error"]
+            element.classList.add(add);
+            element.classList.remove(remove);
+
+            if (value) {
+                // automatically add '-' after every 4th digit
+                value = value.match(/.{1,4}/g).join('-');
+            }
+            element.value = value;
+            document.getElementById("error-msg").innerHTML = msg;
+        }
+    </script>
+</body>
+
+</html>

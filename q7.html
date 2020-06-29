@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>My Web Tech MidSem Q7</title>
+
+    <style>
+        #form {
+            max-width: 600px;
+        }
+
+        label {
+            font-weight: 600;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            font-size: 16px;
+            display: block;
+            padding: 12px 20px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 0px;
+            box-sizing: border-box;
+        }
+
+        input[type=date] {
+            width: 50%;
+        }
+
+        input[type=color] {
+            width: 50px;
+            padding: 5px 5px;
+        }
+
+        input[type=range] {
+            width: 200px;
+        }
+
+        #submit {
+            width: 150px;
+            background-color: #04A49B;
+            color: white;
+            padding: 14px 20px;
+            cursor: pointer;
+        }
+
+        #full-name-container input {
+            width: 49%;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <form method="post" id="form" onsubmit="event.preventDefault(); onSubmit()">
+        <fieldset>
+            <legend>Enter Your Data</legend>
+            <div id="full-name-container">
+                <label for="fullname">Full Name<span style="color:red">*</span></label>
+                <div>
+                    <input type="text" id="firstname" placeholder="First">
+                    <input type="text" id="lastname" placeholder="Last">
+                </div>
+            </div>
+            <div id="email-container">
+                <label for="email">Email <span style="color:red">*</span></label>
+                <input type="email" id="email" name="email">
+            </div>
+            <div>
+                <label for="dob">Date Of Birth</label>
+                <input type="date" name="dob" id="dob">
+            </div>
+            <div>
+                <label for="subject">Subject</label>
+                <select name="subject">
+                    <option value="advertise" selected>Advertise</option>
+                </select>
+            </div>
+            <div>
+                <label for="colour">Pick Your Color ?</label></br>
+                <input type="color" id="color" name="color" />
+            </div>
+            <div>
+                <label for="price">enter your range</label><br>
+                <input name="price" id="price" type="range" min="1" max="12" step="1" value="1" />
+            </div>
+            <div>
+                <label for="message">Your Message<span style="color:red">*</span></label>
+                <textarea name="comment" rows="5" cols="40"></textarea></br>
+            </div>
+            <input type="submit" id="submit" value="Submit">
+        </fieldset>
+    </form>
+
+    <script>
+        const onSubmit = () => {
+            alert("Data submitted successfully.");
+            document.getElementById("form").reset();
+        }
+    </script>
+</body>
+
+</html>
